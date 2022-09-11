@@ -70,16 +70,6 @@ public class GUICardGame {
 		// Retrieving and setting images for cards
 		cardImageArray = currentGame.getDeckArray();
 		Image backOfCard = new Image(display, currentGame.getBackOfCards());
-//		
-//		playAgain = new Button(shell, SWT.None);
-//		playAgain.setText("Restart Game");
-////		playAgain.setVisible(false);
-//		playAgain.addSelectionListener(new SelectionAdapter(){
-//			public void widgetSelected(SelectionEvent event) {
-//				shell.dispose();
-//				GameController.main(null);
-//			}
-//		});
 
 		Button btnNewButton = new Button(shell, SWT.NONE);
 		createButton(display, btnNewButton, backOfCard, 0);
@@ -184,7 +174,7 @@ public class GUICardGame {
 					if(currentGame.getTotalGameScore() == buttonArray.length / 2) {
 						gameLabel.setLocation(50, 100);
 						gameLabel.setSize(640, 30);
-						gameLabel.setText("Congradulations, " + currentGame.getWinner() + " wins this game!");						
+						gameLabel.setText("congratulations, " + currentGame.getWinner() + " wins this game!");						
 					}
 				}
 

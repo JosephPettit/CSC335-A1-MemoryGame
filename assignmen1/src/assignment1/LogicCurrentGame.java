@@ -1,52 +1,90 @@
 package assignment1;
 
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class LogicCurrentGame {
-	
+
 	private int players;
-	private int playerSelection1 = -1;
-	private int playerSelection2 = -1;
+	private int totalScore;
 	private boolean singleFlip;
 	private String backOfCards;
 	private String[] deckArray;
-	private LinkedList<LogicPlayer> currentPlayers;
-	
+	private Queue<LogicPlayer> currentPlayers;
+	private LogicPlayer activePlayer;
+
 	LogicCurrentGame(LogicGameOptions selections) {
 		CardImages images = new CardImages(selections.getDeck());
 		this.players = selections.getPlayers();
 		this.singleFlip = selections.getSingleFlip();
 		this.backOfCards = images.getBackOfCards();
 		this.deckArray = images.getImagesArray();
-		currentPlayers = new LinkedList<LogicPlayer>();
+		this.currentPlayers = new LinkedList<LogicPlayer>();
 
 	}
-	
-	public boolean isFirstSelected() {
-		return (playerSelection1 != -1);
-	}
-	
-	public boolean isSecondSelected() {
-		return (playerSelection2 != -1);
-	}
-	
-	public int matchLocated(int playerSelection2) {
-		if(deckArray[playerSelection1].equals(deckArray[playerSelection2])) {
-			return playerSelection1;
-		}
-		return -1;
-	}
-	
+
 	public void addPlayer(LogicPlayer player) {
+
 		currentPlayers.add(player);
+		
+		if(activePlayer == null) {
+			activePlayer = currentPlayers.poll();
+		}
+	}
+
+	public boolean isFirstSelected() {
+		return (activePlayer.getPlayerSelection1() != -1);
+	}
+
+	public boolean isSecondSelected() {
+		return (activePlayer.getPlayerSelection2() != -1);
+	}
+
+	public boolean matchLocated() {
+		if (deckArray[activePlayer.getPlayerSelection1()].equals(deckArray[activePlayer.getPlayerSelection2()])) {
+			activePlayer.incrementScore();
+			return true;
+		}
+		return false;
+	}
+
+	public void endRoundWin() {
+		if (singleFlip) {
+			switchPlayer();
+		} else {
+			activePlayer.endRound();
+		}
+		totalScore ++;
+	}
+
+	public void endRoundLoss() {
+		switchPlayer();
+	}
+
+	public int getTotalGameScore() {
+		return totalScore;
 	}
 	
-	public void endRound() {
-		playerSelection1 = -1;
-		playerSelection2 = -1;
+	public String getWinner() {
+		String winner = activePlayer.getUserName();
+		for(LogicPlayer player : currentPlayers) {
+			if(player.getScore() > activePlayer.getScore()) {
+				winner = player.getUserName();
+			}
+		}
+		return winner;
 	}
+	
 	public int getPlayers() {
 		return players;
+	}
+	
+	public int getScore() {
+		return activePlayer.getScore();
+	}
+
+	public String getPlayer() {
+		return activePlayer.getUserName();
 	}
 
 	public boolean isSingleFlip() {
@@ -61,23 +99,25 @@ public class LogicCurrentGame {
 		return deckArray;
 	}
 
-	public LinkedList<LogicPlayer> getCurrentPlayers() {
-		return currentPlayers;
-	}
-	
 	public void setPlayerSelection1(int selection) {
-		this.playerSelection1 = selection;
+		activePlayer.setPlayerSelection1(selection);
 	}
 
 	public int getPlayerSelection1() {
-		return playerSelection1;
+		return activePlayer.getPlayerSelection1();
 	}
 
 	public void setPlayerSelection2(int selection) {
-		this.playerSelection2 = selection;
+		activePlayer.setPlayerSelection2(selection);
 	}
 
 	public int getPlayerSelection2() {
-		return playerSelection2;
+		return activePlayer.getPlayerSelection2();
+	}
+
+	private void switchPlayer() {
+		activePlayer.endRound();
+		currentPlayers.offer(activePlayer);
+		activePlayer = currentPlayers.poll();
 	}
 }

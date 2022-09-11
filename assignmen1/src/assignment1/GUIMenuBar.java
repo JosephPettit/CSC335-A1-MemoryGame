@@ -21,16 +21,17 @@ public class GUIMenuBar {
 		Menu fileMenu = new Menu(shell, SWT.DROP_DOWN);
 		fileMenuHeader.setMenu(fileMenu);
 
-		MenuItem gameOptions = new MenuItem(fileMenu, SWT.PUSH);
-		gameOptions.setText("Set game options");
-		gameOptions.addSelectionListener(new SelectionListener() {
+		MenuItem restartGame = new MenuItem(fileMenu, SWT.PUSH);
+		restartGame.setText("Reset / Restart Game");
+		restartGame.addSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {}
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				
+				shell.dispose();
+				GameController.main(null);
 			}
 			
 		});

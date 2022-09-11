@@ -52,9 +52,8 @@ public class GUIGameOptions extends Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-		shell.setMinimumSize(new Point(340, 150));
-		shell.setMaximumSize(new Point(340, 150));
-		shell.setSize(340, 150);
+		shell.setMinimumSize(new Point(340, 170));
+		shell.setMaximumSize(new Point(340, 170));
 		shell.setText(getText());
 		shell.setLayout(null);
 		
@@ -90,7 +89,7 @@ public class GUIGameOptions extends Dialog {
 		combo.select(0);
 		
 		Label lblSingleFlipMode = new Label(grpPlayers, SWT.NONE);
-		lblSingleFlipMode.setBounds(10, 72, 107, 15);
+		lblSingleFlipMode.setBounds(10, 72, 91, 15);
 		lblSingleFlipMode.setText("Single Flip Mode:");
 		
 		Button btnActivated = new Button(grpPlayers, SWT.CHECK);

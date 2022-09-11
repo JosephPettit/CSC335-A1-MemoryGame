@@ -15,6 +15,12 @@ public class GameController {
 			GUICardGame window = new GUICardGame();
 			LogicGameOptions gameOptions = new GUIGameOptions(window.shell, SWT.None).open();
 			LogicCurrentGame currentGame = new LogicCurrentGame(gameOptions);
+			GUIPlayerName player;
+			
+			for(int i = 1; i < currentGame.getPlayers(); i++) {
+				player = new GUIPlayerName(window.shell, SWT.None);
+				currentGame.addPlayer(player.open());
+			}
 			window.open(currentGame);
 		} catch (Exception e) {
 			e.printStackTrace();

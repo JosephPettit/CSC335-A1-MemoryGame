@@ -18,15 +18,16 @@ public class LogicCurrentGame {
 		this.singleFlip = selections.getSingleFlip();
 		this.backOfCards = images.getBackOfCards();
 		this.deckArray = images.getImagesArray();
+		currentPlayers = new LinkedList<LogicPlayer>();
 
 	}
 	
-	public boolean isFirstSelection() {
-		return (playerSelection1 == -1);
+	public boolean isFirstSelected() {
+		return (playerSelection1 != -1);
 	}
 	
-	public boolean isSecondSelection() {
-		return (playerSelection2 == -1);
+	public boolean isSecondSelected() {
+		return (playerSelection2 != -1);
 	}
 	
 	public int matchLocated(int playerSelection2) {

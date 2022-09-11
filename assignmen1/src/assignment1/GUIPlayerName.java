@@ -22,6 +22,7 @@ public class GUIPlayerName extends Dialog {
 	protected Object result;
 	protected Shell shell;
 	private Text text;
+	private String playerName;
 
 	/**
 	 * Create the dialog.
@@ -37,8 +38,8 @@ public class GUIPlayerName extends Dialog {
 	 * Open the dialog.
 	 * @return the result
 	 */
-	public LogicPlayer open() {
-		createContents();
+	public String open(int playerNumber) {
+		createContents(playerNumber);
 		shell.open();
 		shell.layout();
 		Display display = getParent().getDisplay();
@@ -47,13 +48,13 @@ public class GUIPlayerName extends Dialog {
 				display.sleep();
 			}
 		}
-		return new LogicPlayer(text.getText());
+		return playerName;
 	}
 
 	/**
 	 * Create contents of the dialog.
 	 */
-	private void createContents() {
+	private void createContents(int playerNumber) {
 		shell = new Shell(getParent(), getStyle());
 		shell.setMaximumSize(new Point(136, 139));
 		shell.setSize(286, 140);
@@ -61,20 +62,23 @@ public class GUIPlayerName extends Dialog {
 		shell.setLayout(new GridLayout(1, false));
 		
 		Label lblNewLabel = new Label(shell, SWT.NONE);
-		lblNewLabel.setText("Player Name:");
+		lblNewLabel.setText("Enter Player " + playerNumber + "'s Name:");
 		new Label(shell, SWT.NONE);
 		
 		text = new Text(shell, SWT.BORDER);
 		GridData gd_text = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_text.widthHint = 248;
 		text.setLayoutData(gd_text);
-		text.setText("");
+		text.setText("Player " + playerNumber);
+		text.forceFocus();
+		text.selectAll();
 		
 		Button btnOkay = new Button(shell, SWT.RIGHT);
 		btnOkay.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
+				playerName = text.getText();
+				shell.dispose();
 			}
 		});
 		btnOkay.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));

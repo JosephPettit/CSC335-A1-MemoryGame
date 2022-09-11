@@ -23,7 +23,7 @@ public class GUICardGame {
 	GUICardGame() {
 		shell = new Shell();
 		shell.setSize(450, 300);
-		shell.setText("SWT Application");
+		shell.setText("Concentraion Card Game");
 		shell.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 	}
 
@@ -60,7 +60,6 @@ public class GUICardGame {
 		shell.setMenuBar(menuBar);
 
 		// Retrieving and setting images for cards
-//		Image backOfCard = new Image(display, currentGame.getBackOfCards());
 		cardImageArray = currentGame.getDeckArray();
 
 		btnNewButton = new Button(shell, SWT.NONE);
@@ -113,15 +112,15 @@ public class GUICardGame {
 			public void widgetSelected(SelectionEvent event) {
 				button.setImage(new Image(display, cardImageArray[cardNumber]));
 
-				if (currentGame.isFirstSelection() && cardNumber != currentGame.getPlayerSelection1()) {
+				if (!currentGame.isFirstSelected() && cardNumber != currentGame.getPlayerSelection1()) {
 					currentGame.setPlayerSelection1(cardNumber);
 				}
-				else if(currentGame.isSecondSelection() && cardNumber != currentGame.getPlayerSelection2()) {
+				else if(!currentGame.isSecondSelected() && cardNumber != currentGame.getPlayerSelection2()) {
 					currentGame.setPlayerSelection2(cardNumber);
 				}
 				
 				
-				else if(!currentGame.isFirstSelection() && !currentGame.isSecondSelection()) {
+				if(currentGame.isFirstSelected() && currentGame.isSecondSelected()) {
 					int matchedCard = currentGame.matchLocated(cardNumber);
 					
 					if(matchedCard == -1) {

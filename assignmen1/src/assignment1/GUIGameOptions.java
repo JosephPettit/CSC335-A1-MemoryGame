@@ -27,7 +27,7 @@ public class GUIGameOptions extends Dialog {
 	 */
 	public GUIGameOptions(Shell parent, int style) {
 		super(parent, SWT.DIALOG_TRIM |SWT.PRIMARY_MODAL);
-		setText("SWT Dialog");
+		setText("Game Options");
 	}
 
 	/**
